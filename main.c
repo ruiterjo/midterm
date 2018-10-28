@@ -395,6 +395,8 @@ void timerA_Motor(pwm)   //passed pwm and sets the speed using timerA pin 2.4
 
 }
 //----------------------------------------------------------------------------------------------------------------------------
+//opens and closes door based on what option was selected
+//1 is open and 0 is closed
 void timerA_servo(int option)   // pin 2.5
 {
     P2->SEL0 |= BIT5;
@@ -455,12 +457,7 @@ void timerA_lights(int pwm,int color)   // P7.7,6,5
              TIMER_A1->CCR[1]  =0;
      }
 
-
-
      TIMER_A1->CTL = 0b1001010000;
-
-
-
 }
 //----------------------------------------------------------------------------------------------------------------------------
 void systick_start() //initialize timer
@@ -788,6 +785,8 @@ void lights_menu2() //for the display menu to get pwm
      }
 }
 //-----------------------------------------------------------------------------------------------------------------------------------
+//handles the two interrupt buttons.
+//3.6 is the lights and 3.7 is the motor stop
 void PORT3_IRQHandler(void)
 {
     int status = P3->IFG;                           //Record all flags of all interrupts on this port
