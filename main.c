@@ -4,6 +4,7 @@
  * Professor: Zuidema
  * Midterm project
  * Date: October, 2018
+ *
  *  */
 
 
@@ -70,14 +71,14 @@ int main(void) {
             door_menu();
             option=0;
             option= get_option();
-            if (option==1) //turns the red led off and the green on
+            if (option==1)
             {
                 P7-> OUT &= ~BIT0;  //set output 0 of RED LED
                 P7-> OUT |= BIT1;  //set output of GREEN LED to 1
                 timerA_servo(option);  //opens door
 
             }
-            if (option==2) //turns the green led off and the red on 
+            if (option==2)
             {
                 P7-> OUT &= ~BIT1;  //set output of GREEN LED to 0
                 P7-> OUT |= BIT0;  //set output of RED LED to 1
@@ -404,17 +405,17 @@ void timerA_servo(int option)   // pin 2.5
 
      if (option== 1)
      {
-         TIMER_A0->CCR[0]  = 37500-1;              // PWM Period (# cycles of clock)
+         TIMER_A0->CCR[0]  = 60000-1;              // PWM Period (# cycles of clock)
          TIMER_A0->CCTL[2] = 0b11100000;     // CCR1 reset/set mode 7
-         TIMER_A0->CCR[2]  = 2250-1; // CCR1 PWM for 90 degrees
+         TIMER_A0->CCR[2]  = 6000; // CCR1 PWM for 90 degrees 10 percent
 
          TIMER_A0->CTL = 0b1001010000;
      }
      if (option== 2)
      {
-         TIMER_A0->CCR[0]  = 37500-1;              // PWM Period (# cycles of clock)
+         TIMER_A0->CCR[0]  = 60000-1;              // PWM Period (# cycles of clock)
          TIMER_A0->CCTL[2] = 0b11100000;     // CCR1 reset/set mode 7
-         TIMER_A0->CCR[2]  = 1500-1; // CCR1 PWM for 0 degrees
+         TIMER_A0->CCR[2]  = 3000-1; // CCR1 PWM for 0 degrees 5 percent
 
          TIMER_A0->CTL = 0b1001010000;
      }
@@ -570,7 +571,7 @@ void main_menu() //for the display menu
      char line4[]= "3.Lights         ";
 
      int i=0;
-     while(line1[i] != '\0')  //writes the menu to the lcd screen 
+     while(line1[i] != '\0')
      {
          if (line1[i] != '\0')
              dataWrite(line1[i]);
@@ -579,7 +580,7 @@ void main_menu() //for the display menu
 
      write_command(0b11000000); //moves cursor to second line
      i=0;
-     while(line2[i] != '\0') //writes the menu to the lcd screen
+     while(line2[i] != '\0')
      {
          if (line2[i] != '\0')
              dataWrite(line2[i]);
@@ -588,7 +589,7 @@ void main_menu() //for the display menu
 
      write_command(0b10010000); //moves cursor to third line
      i=0;
-     while(line3[i] != '\0') //writes the menu to the lcd screen
+     while(line3[i] != '\0')
      {
          if (line3[i] != '\0')
              dataWrite(line3[i]);
@@ -597,7 +598,7 @@ void main_menu() //for the display menu
 
      write_command(0b11010000); //moves cursor to fourth line
      i=0;
-     while(line4[i] != '\0') //writes the menu to the lcd screen
+     while(line4[i] != '\0')
      {
          if (line4[i] != '\0')
              dataWrite(line4[i]);
@@ -614,7 +615,7 @@ void door_menu() //for the display menu
      char line4[]= "                ";
 
      int i=0;
-     while(line1[i] != '\0') //writes the menu to the lcd screen
+     while(line1[i] != '\0')
      {
          if (line1[i] != '\0')
              dataWrite(line1[i]);
@@ -623,7 +624,7 @@ void door_menu() //for the display menu
 
      write_command(0b11000000); //moves cursor to second line
      i=0;
-     while(line2[i] != '\0') //writes the menu to the lcd screen
+     while(line2[i] != '\0')
      {
          if (line2[i] != '\0')
              dataWrite(line2[i]);
@@ -632,8 +633,8 @@ void door_menu() //for the display menu
 
      write_command(0b10010000); //moves cursor to third line
      i=0;
-     while(line3[i] != '\0') //writes the menu to the lcd screen
-     { 
+     while(line3[i] != '\0')
+     {
          if (line3[i] != '\0')
              dataWrite(line3[i]);
          i++;
@@ -641,7 +642,7 @@ void door_menu() //for the display menu
 
      write_command(0b11010000); //moves cursor to fourth line
      i=0;
-     while(line4[i] != '\0') //writes the menu to the lcd screen
+     while(line4[i] != '\0')
      {
          if (line4[i] != '\0')
              dataWrite(line4[i]);
@@ -658,7 +659,7 @@ void motor_menu() //for the display menu
      char line4[]= "                ";
 
      int i=0;
-     while(line1[i] != '\0') //writes the menu to the lcd screen
+     while(line1[i] != '\0')
      {
          if (line1[i] != '\0')
              dataWrite(line1[i]);
@@ -667,7 +668,7 @@ void motor_menu() //for the display menu
 
      write_command(0b11000000); //moves cursor to second line
      i=0;
-     while(line2[i] != '\0') //writes the menu to the lcd screen
+     while(line2[i] != '\0')
      {
          if (line2[i] != '\0')
              dataWrite(line2[i]);
@@ -676,7 +677,7 @@ void motor_menu() //for the display menu
 
      write_command(0b10010000); //moves cursor to third line
      i=0;
-     while(line3[i] != '\0') //writes the menu to the lcd screen
+     while(line3[i] != '\0')
      {
          if (line3[i] != '\0')
              dataWrite(line3[i]);
@@ -685,7 +686,7 @@ void motor_menu() //for the display menu
 
      write_command(0b11010000); //moves cursor to fourth line
      i=0;
-     while(line4[i] != '\0') //writes the menu to the lcd screen
+     while(line4[i] != '\0')
      {
          if (line4[i] != '\0')
              dataWrite(line4[i]);
@@ -705,7 +706,7 @@ void lights_menu() //for the display menu
      char line4[]= "3.Yellow        ";
 
      int i=0;
-     while(line1[i] != '\0') //writes the menu to the lcd screen
+     while(line1[i] != '\0')
      {
          if (line1[i] != '\0')
              dataWrite(line1[i]);
@@ -714,7 +715,7 @@ void lights_menu() //for the display menu
 
      write_command(0b11000000); //moves cursor to second line
      i=0;
-     while(line2[i] != '\0') //writes the menu to the lcd screen
+     while(line2[i] != '\0')
      {
          if (line2[i] != '\0')
              dataWrite(line2[i]);
@@ -723,7 +724,7 @@ void lights_menu() //for the display menu
 
      write_command(0b10010000); //moves cursor to third line
      i=0;
-     while(line3[i] != '\0') //writes the menu to the lcd screen
+     while(line3[i] != '\0')
      {
          if (line3[i] != '\0')
              dataWrite(line3[i]);
@@ -732,7 +733,7 @@ void lights_menu() //for the display menu
 
      write_command(0b11010000); //moves cursor to fourth line
      i=0;
-     while(line4[i] != '\0') //writes the menu to the lcd screen
+     while(line4[i] != '\0')
      {
          if (line4[i] != '\0')
              dataWrite(line4[i]);
@@ -749,7 +750,7 @@ void lights_menu2() //for the display menu to get pwm
       char line4[]= "                ";
 
      int i=0;
-     while(line1[i] != '\0') //writes the menu to the lcd screen
+     while(line1[i] != '\0')
      {
          if (line1[i] != '\0')
              dataWrite(line1[i]);
@@ -758,7 +759,7 @@ void lights_menu2() //for the display menu to get pwm
 
      write_command(0b11000000); //moves cursor to second line
      i=0;
-     while(line2[i] != '\0') //writes the menu to the lcd screen
+     while(line2[i] != '\0')
      {
          if (line2[i] != '\0')
              dataWrite(line2[i]);
@@ -767,7 +768,7 @@ void lights_menu2() //for the display menu to get pwm
 
      write_command(0b10010000); //moves cursor to third line
      i=0;
-     while(line3[i] != '\0') //writes the menu to the lcd screen
+     while(line3[i] != '\0')
      {
          if (line3[i] != '\0')
              dataWrite(line3[i]);
@@ -776,7 +777,7 @@ void lights_menu2() //for the display menu to get pwm
 
      write_command(0b11010000); //moves cursor to fourth line
      i=0;
-     while(line4[i] != '\0') //writes the menu to the lcd screen
+     while(line4[i] != '\0')
      {
          if (line4[i] != '\0')
              dataWrite(line4[i]);
