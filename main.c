@@ -405,17 +405,17 @@ void timerA_servo(int option)   // pin 2.5
 
      if (option== 1)
      {
-         TIMER_A0->CCR[0]  = 12000-1;              // PWM Period (# cycles of clock)
+         TIMER_A0->CCR[0]  = 40000-1;              // PWM Period (# cycles of clock)
          TIMER_A0->CCTL[2] = 0b11000000;     // CCR1 reset/set mode 7
-         TIMER_A0->CCR[2]  = 6000-1; // CCR1 PWM for 90 degrees 10 percent
+         TIMER_A0->CCR[2]  = 4000-1; // CCR1 PWM for 90 degrees 10 percent
 
          TIMER_A0->CTL = 0b1001010000;  //smclk, no divider, upmode
      }
      if (option== 2)
      {
-         TIMER_A0->CCR[0]  = 12000-1;              // PWM Period (# cycles of clock)
+         TIMER_A0->CCR[0]  = 40000-1;              // PWM Period (# cycles of clock)
          TIMER_A0->CCTL[2] = 0b11000000;     // CCR1 reset/set mode 7
-         TIMER_A0->CCR[2]  = 3000-1; // CCR1 PWM for 0 degrees 5 percent
+         TIMER_A0->CCR[2]  = 2000-1; // CCR1 PWM for 0 degrees 5 percent
 
          TIMER_A0->CTL = 0b1001010000;  //smclk, no divider, upmode
      }
