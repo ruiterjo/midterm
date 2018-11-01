@@ -109,10 +109,6 @@ void lights_menu2(); //for the display menu to get pwm
             option=0;
 
         }
-        delay_ms(1000);
-
-
-
 
 
     }
@@ -426,14 +422,14 @@ void timerA_servo(int option)   // pin 2.5
 }
 //----------------------------------------------------------------------------------------------------------------------------
 // takes in PWM, and Color
-// Color 1= Orange
-// Color 2= Blue
-// Color 3= Yellow
+// Color 1= Blue
+// Color 2= Yellow
+// Color 3= Orange
 void timerA_lights(int pwm,int color)   // P7.7,6,5
 {
 
      TIMER_A1->CCR[0]  = 24000-1;              // PWM Period (# cycles of clock)
-     if (color==1) //COLOR 1= Orange and TA1.3
+     if (color==3) //COLOR 3= Orange and TA1.3
      {
          TIMER_A1->CCTL[3] = 0b11100000;     // CCR1 reset/set mode 7
          TIMER_A1->CCR[3]  =((pwm/100.0)* 24000)-1; // CCR1 PWM duty cycle
@@ -441,18 +437,18 @@ void timerA_lights(int pwm,int color)   // P7.7,6,5
          if(pwm==0)
              TIMER_A1->CCR[3]  =0;
      }
-     if (color==2)  //COLOR 2= Blue and TA1.2
+     if (color==1)  //COLOR 1= Blue and TA1.2
      {
-         TIMER_A1->CCTL[2] = 0b11100000;     // CCR1 reset/set mode 7
-         TIMER_A1->CCR[2]  =((pwm/100.0)* 24000)-1; // CCR1 PWM duty cycle
+         TIMER_A1->CCTL[1] = 0b11100000;     // CCR1 reset/set mode 7
+         TIMER_A1->CCR[1]  =((pwm/100.0)* 24000)-1; // CCR1 PWM duty cycle
 
          if(pwm==0)
              TIMER_A1->CCR[2]  =0;
      }
-     if (color==3) //COLOR 3= Yellow and TA1.1
+     if (color==2) //COLOR 2= Yellow and TA1.1
      {
-         TIMER_A1->CCTL[1] = 0b11100000;     // CCR1 reset/set mode 7
-         TIMER_A1->CCR[1]  =((pwm/100.0)* 24000)-1; // CCR1 PWM duty cycle
+         TIMER_A1->CCTL[2] = 0b11100000;     // CCR1 reset/set mode 7
+         TIMER_A1->CCR[2]  =((pwm/100.0)* 24000)-1; // CCR1 PWM duty cycle
 
          if(pwm==0)
              TIMER_A1->CCR[1]  =0;
@@ -698,17 +694,17 @@ void motor_menu() //for the display menu
      }
 }
 //--------------------------------------------------------------------------------------------------------------------------------
-// Color 1= Orange
-// Color 2= Blue
-// Color 3= Yellow
+// Color 1= Blue
+// Color 2= Yellow
+// Color 3= Orange
 //displays the menu for the Lights it switches it prints the lines
 void lights_menu() //for the display menu
 {
       write_command(0b00000001); //reset display
       char line1[]= "   Light Menu";
-     char line2[]= "1.Orange ";
-     char line3[]= "2.Blue";
-     char line4[]= "3.Yellow        ";
+     char line2[]= "1.Blue ";
+     char line3[]= "2.Yellow";
+     char line4[]= "3.Orange        ";
 
      int i=0;
      while(line1[i] != '\0')
