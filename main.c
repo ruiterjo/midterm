@@ -304,6 +304,7 @@ int get_pwm() //function to get a pin from keypad, returns speed for pwm
     int speed=0;
     int status=1;
    // printf("Enter a PWM between 0 and 100 and a # when done:\n");
+   write_command(0b11010000); //moves cursor to fourth line (is here so it doesnt rewrite itself every loop)
     while (status)
     {
     temp= readkeypad();
@@ -314,9 +315,9 @@ int get_pwm() //function to get a pin from keypad, returns speed for pwm
         a [2]= a [1]; //shuffles array
         a [1]= a [0];
         a [0]=temp;
+                                     //CHECK THESE LINES TO SEE IF THEY WORK
 
-
-        }
+         dataWrite(temp);           //writes temp value in the display line
 
         int hundreds, tens, ones;
         hundreds= (int)a[2];
