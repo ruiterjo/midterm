@@ -42,7 +42,7 @@ void lights_menu(); //for the display menu for light color
 void lights_menu2(); //for the display menu to get pwm
 //-------------------------------------------------------------
 
-int main(void) {
+ int main(void) {
 
 
 
@@ -73,15 +73,15 @@ int main(void) {
             option= get_option();
             if (option==1)
             {
-                P7-> OUT &= ~BIT0;  //set output 0 of RED LED
-                P7-> OUT |= BIT1;  //set output of GREEN LED to 1
+                P5-> OUT &= ~BIT0;  //set output 0 of RED LED
+                P5-> OUT |= BIT1;  //set output of GREEN LED to 1
                 timerA_servo(option);  //opens door
 
             }
             if (option==2)
             {
-                P7-> OUT &= ~BIT1;  //set output of GREEN LED to 0
-                P7-> OUT |= BIT0;  //set output of RED LED to 1
+                P5-> OUT &= ~BIT1;  //set output of GREEN LED to 0
+                P5-> OUT |= BIT0;  //set output of RED LED to 1
                 timerA_servo(option);//DOOR CLOSED
             }
 
@@ -193,15 +193,15 @@ void initbuttons() //function for initializing the push buttons
 //----------------------------------------------------------------------------------------------------------------------------
 void initLED() //function for initializing the LEDs
 {
-    P7-> SEL0 &= ~BIT0;  //LED RED
-    P7-> SEL1 &= ~BIT0;
-    P7-> DIR |= BIT0; //output
-    P7-> OUT &= ~BIT0;  //set output 0
+    P5-> SEL0 &= ~BIT0;  //LED RED
+    P5-> SEL1 &= ~BIT0;
+    P5-> DIR |= BIT0; //output
+    P5-> OUT |= BIT0;  //set output 1
 
-    P7-> SEL0 &= ~BIT1;  //LED GREEN
-    P7-> SEL1 &= ~BIT1;
-    P7-> DIR |= BIT1; //output
-    P7-> OUT &= ~BIT1;  //set output 0
+    P5-> SEL0 &= ~BIT1;  //LED GREEN
+    P5-> SEL1 &= ~BIT1;
+    P5-> DIR |= BIT1; //output
+    P5-> OUT &= ~BIT1;  //set output 0
 
     P7-> SEL0 &= ~BIT6;  //LED BLUE
     P7-> SEL1 &= ~BIT6;
@@ -406,19 +406,19 @@ void timerA_servo(int option)   // pin 2.5
 
      if (option== 1)
      {
-         TIMER_A0->CCR[0]  = 60000-1;              // PWM Period (# cycles of clock)
-         TIMER_A0->CCTL[2] = 0b11100000;     // CCR1 reset/set mode 7
-         TIMER_A0->CCR[2]  = 6000; // CCR1 PWM for 90 degrees 10 percent
+         TIMER_A0->CCR[0]  = 40000-1;              // PWM Period (# cycles of clock)
+         TIMER_A0->CCTL[2] = 0b11000000;     // CCR1 reset/set mode 7
+         TIMER_A0->CCR[2]  = 4000-1; // CCR1 PWM for 90 degrees 10 percent
 
-         TIMER_A0->CTL = 0b1001010000;
+         TIMER_A0->CTL = 0b1001010000;  //smclk, no divider, upmode
      }
      if (option== 2)
      {
-         TIMER_A0->CCR[0]  = 60000-1;              // PWM Period (# cycles of clock)
-         TIMER_A0->CCTL[2] = 0b11100000;     // CCR1 reset/set mode 7
-         TIMER_A0->CCR[2]  = 3000-1; // CCR1 PWM for 0 degrees 5 percent
+         TIMER_A0->CCR[0]  = 40000-1;              // PWM Period (# cycles of clock)
+         TIMER_A0->CCTL[2] = 0b11000000;     // CCR1 reset/set mode 7
+         TIMER_A0->CCR[2]  = 2000-1; // CCR1 PWM for 0 degrees 5 percent
 
-         TIMER_A0->CTL = 0b1001010000;
+         TIMER_A0->CTL = 0b1001010000;  //smclk, no divider, upmode
      }
 
 
@@ -563,6 +563,7 @@ void dataWrite(uint8_t data) //will write one bit of data by calling pushByte()
     pushByte(data);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------
+//this funciton displays the overall menu
 void main_menu() //for the display menu
 {
     write_command(0b00000001); //reset display
@@ -607,6 +608,7 @@ void main_menu() //for the display menu
      }
 }
 //-----------------------------------------------------------------------------------------------------------------------------
+//once the door is selected the door menu appears
 void door_menu() //for the display menu
 {
     write_command(0b00000001); //reset display
@@ -651,6 +653,7 @@ void door_menu() //for the display menu
      }
 }
 //----------------------------------------------------------------
+//Displays the menu for the motor once the motor is selected 
 void motor_menu() //for the display menu
 {
     write_command(0b00000001); //reset display
@@ -698,6 +701,7 @@ void motor_menu() //for the display menu
 // Color 1= Orange
 // Color 2= Blue
 // Color 3= Yellow
+//displays the menu for the Lights it switches it prints the lines
 void lights_menu() //for the display menu
 {
       write_command(0b00000001); //reset display
@@ -742,6 +746,7 @@ void lights_menu() //for the display menu
      }
 }
 //--------------------------------------------------------------------------------------------------------------------------------
+//once the light menu is selected and a light is selected the brightness level is then selected 
 void lights_menu2() //for the display menu to get pwm
 {
       write_command(0b00000001); //reset display
@@ -787,6 +792,7 @@ void lights_menu2() //for the display menu to get pwm
 }
 //-----------------------------------------------------------------------------------------------------------------------------------
 //handles the two interrupt buttons.
+//This will turn the lights on and off and then an emeragency stop for the motot
 //3.6 is the lights and 3.7 is the motor stop
 void PORT3_IRQHandler(void)
 {
