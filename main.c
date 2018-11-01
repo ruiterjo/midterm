@@ -562,6 +562,7 @@ void dataWrite(uint8_t data) //will write one bit of data by calling pushByte()
     pushByte(data);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------
+//this funciton displays the overall menu
 void main_menu() //for the display menu
 {
     write_command(0b00000001); //reset display
@@ -606,6 +607,7 @@ void main_menu() //for the display menu
      }
 }
 //-----------------------------------------------------------------------------------------------------------------------------
+//once the door is selected the door menu appears
 void door_menu() //for the display menu
 {
     write_command(0b00000001); //reset display
@@ -650,6 +652,7 @@ void door_menu() //for the display menu
      }
 }
 //----------------------------------------------------------------
+//Displays the menu for the motor once the motor is selected 
 void motor_menu() //for the display menu
 {
     write_command(0b00000001); //reset display
@@ -697,6 +700,7 @@ void motor_menu() //for the display menu
 // Color 1= Orange
 // Color 2= Blue
 // Color 3= Yellow
+//displays the menu for the Lights it switches it prints the lines
 void lights_menu() //for the display menu
 {
       write_command(0b00000001); //reset display
@@ -741,6 +745,7 @@ void lights_menu() //for the display menu
      }
 }
 //--------------------------------------------------------------------------------------------------------------------------------
+//once the light menu is selected and a light is selected the brightness level is then selected 
 void lights_menu2() //for the display menu to get pwm
 {
       write_command(0b00000001); //reset display
@@ -786,6 +791,7 @@ void lights_menu2() //for the display menu to get pwm
 }
 //-----------------------------------------------------------------------------------------------------------------------------------
 //handles the two interrupt buttons.
+//This will turn the lights on and off and then an emeragency stop for the motot
 //3.6 is the lights and 3.7 is the motor stop
 void PORT3_IRQHandler(void)
 {
