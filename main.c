@@ -315,7 +315,7 @@ int get_pwm() //function to get a pin from keypad, returns speed for pwm
         a [2]= a [1]; //shuffles array
         a [1]= a [0];
         a [0]=temp;
-                                     //CHECK THESE LINES TO SEE IF THEY WORK
+        }                           //CHECK THESE LINES TO SEE IF THEY WORK
 
          dataWrite(temp);           //writes temp value in the display line
 
