@@ -167,6 +167,8 @@ void initkey(void)
   //this could be done in one set by using a combined number, but this helps for wiring to have rows and columns labeled
 }
 //---------------------------------------------------------------------------------------------------------------------------------
+//Initializes the two push buttons for the emergenecy stop and the light switch
+//MSP pins P3.6, P3.7
 void initbuttons() //function for initializing the push buttons
 {
     P3-> SEL0 &= ~BIT6;  //SWITCH ONE LIGHTS
@@ -187,6 +189,8 @@ void initbuttons() //function for initializing the push buttons
     NVIC_EnableIRQ(PORT3_IRQn);
 }
 //----------------------------------------------------------------------------------------------------------------------------
+//Iniializes all five leds as outputs and the PWM cycle for the BLUE, YELLOW, ORANGE LEDS
+//MSP pins 5.0,5.1 and pin 7.5-7.7
 void initLED() //function for initializing the LEDs
 {
     P5-> SEL0 &= ~BIT0;  //LED RED
@@ -236,7 +240,7 @@ void initLED() //function for initializing the LEDs
 
 }
 //-------------------------------------------------------------------------------------------------------------------------
-//Function reads the keypad
+//Function reads the keypad when a key is pressed
 //MSP P4.1-P4.7
 //uses pieces from Zuidema and Kandalaft slides
 char readkeypad()
@@ -289,7 +293,8 @@ char readkeypad()
     return val;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------
-int get_pwm() //function to get a pin from keypad, returns speed for pwm
+//Propts user to enter a pwm speed for the motor
+int get_pwm() //function to PWM a pin from keypad, returns speed for pwm
 {
     char a[3];
     a[2]= '0';
@@ -348,7 +353,8 @@ int get_pwm() //function to get a pin from keypad, returns speed for pwm
     return speed;
 }
 //--------------------------------------------------------------------------------------------------------------------------------
-int get_option()  //function returns a number from menu
+//After a number is selected from the menu returns the number
+int get_option() 
 {
 
     char temp= ',';
@@ -369,7 +375,9 @@ int get_option()  //function returns a number from menu
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------
-void timerA_Motor(pwm)   //passed pwm and sets the speed using timerA pin 2.4
+//Sets the speed of the PWM for the motor and initlized the motor
+//MSP Pins P2.4
+void timerA_Motor(pwm)
 {
     P2->SEL0 |= BIT4;
     P2->SEL1 &= ~(BIT4);
@@ -394,6 +402,7 @@ void timerA_Motor(pwm)   //passed pwm and sets the speed using timerA pin 2.4
 //----------------------------------------------------------------------------------------------------------------------------
 //opens and closes door based on what option was selected
 //1 is open and 0 is closed
+//MSP Pin 2.5
 void timerA_servo(int option)   // pin 2.5
 {
     P2->SEL0 |= BIT5;
@@ -421,11 +430,11 @@ void timerA_servo(int option)   // pin 2.5
 
 }
 //----------------------------------------------------------------------------------------------------------------------------
-// takes in PWM, and Color
+// takes in PWM to set the selected led to the disired brightness
 // Color 1= Blue
 // Color 2= Yellow
 // Color 3= Orange
-void timerA_lights(int pwm,int color)   // P7.7,6,5
+void timerA_lights(int pwm,int color) 
 {
 
      TIMER_A1->CCR[0]  = 24000-1;              // PWM Period (# cycles of clock)
@@ -704,7 +713,7 @@ void lights_menu() //for the display menu
       char line1[]= "   Light Menu";
      char line2[]= "1.Blue ";
      char line3[]= "2.Yellow";
-     char line4[]= "3.Orange        ";
+     char line4[]= "3.Orange         ";
 
      int i=0;
      while(line1[i] != '\0')
