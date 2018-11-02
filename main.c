@@ -22,7 +22,6 @@ int get_option();  //function returns a number from menu
 void timerA_Motor(int pwm);   //passed pwm and sets the speed using timerA
 void timerA_servo(int option);   //opens door using timerA
 void timerA_lights(int pwm, int color);   //controls lights using timerA
-uint8_t debounce1(); //function prototype for debouncing a switch
 
 //Functions For LCD
 void systick_start(void); //prototype for initializing timer
@@ -413,7 +412,7 @@ void timerA_servo(int option)   // pin 2.5
      {
          TIMER_A0->CCR[0]  = 40000-1;              // PWM Period (# cycles of clock)
          TIMER_A0->CCTL[2] = 0b11000000;     // CCR1 reset/set mode 7
-         TIMER_A0->CCR[2]  = 4000-1; // CCR1 PWM for 90 degrees 10 percent
+         TIMER_A0->CCR[2]  = 3500-1; // CCR1 PWM for 90 degrees about 10 percent
 
          TIMER_A0->CTL = 0b1001010000;  //smclk, no divider, upmode
      }
